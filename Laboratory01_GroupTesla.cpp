@@ -5,7 +5,8 @@
 
 //2 Argument Calculator
 
-#define max_input_length 20
+//maximum length of the single line input
+#define max_input_length 75
 
 #include <iostream>
 using namespace std;
@@ -60,30 +61,59 @@ bool isValidInteger(char* inpInt) {
 
 }
 
+//function to check whether an array is empty
+bool isEmpty(char* x)
+{
+	char* value = x;
+	for (int i = 0; i < max_input_length; i++) {
+		if (*value == NULL) {
+			return true;
+		}
+		value++;
+	}
+	return false;
+}
+
+
 int main(int argc, char* argv[])
 {
 	//Declaring variables for keeping the two integer values
 	__int64 number1 = 0;
 	__int64 number2 = 0;
 
-	//three character arrays for use inputs
-	char input1[max_input_length] = { NULL };
-	char input2[max_input_length] = { NULL };
-	char inputOp[max_input_length] = { NULL };
-
 	//Program status flag to exit the program whe user type 'Exit'
 	bool exitFlag = 1;
 
 	while (exitFlag) 
-	{}
+	{
+		//character array for the single line input
+		char input[max_input_length] = { NULL };
+
+
+		//character arrays for user inputs
+		char input1[max_input_length] = { NULL };
+		char input2[max_input_length] = { NULL };
+		char inputOp[max_input_length] = { NULL };
+
+		//Obtaining the user input
+		cin >> input;
+		
+		for (int i = 0; i < max_input_length)
+		{
+
+		}
+
+
+
+	}
 
 	//checking for empty inputs
-	if (argc == 1) {
+	if (isEmpty(input)) {
 		cout << "Enter valid arguments" << endl;
 		return 1;
 	}
 
-	//Terminating the program on EXIT command  ffdduhdfdufhduf
+	//Terminating the program on EXIT command 
 	if (argv[1][0] == 'E' && argv[1][1] == 'x' && argv[1][2] == 'i' && argv[1][3] == 't')
 	{
 		return 0;
