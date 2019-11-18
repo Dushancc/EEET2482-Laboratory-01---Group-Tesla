@@ -11,33 +11,32 @@ using namespace std;
 bool isValidInteger(char* inpInt) {
 
 	char* temp = inpInt;	//temporary pointer to the input digit 
-	int decPointLocation = -1;  //variable to keep track of the location of the decimal point
-	unsigned int index = 0; //variable to keep the index of the charcter array
-	bool intAfterDecPoint = 0; //flag to check whether there are non-zero values after decimal point
+	bool decPointFlag = 0;  //variable to keep track of the location of the decimal point
 	bool negativeFlag = 0; //Flag to check whether the number is negative
 
 	//Setting the negativeFlag flag if the first character of the array is a negative sign
 	if (*temp == '-') {
 		temp++;
-		index++;
 		negativeFlag = 1;
 	}
 
 	while ((*temp) != '\0')
 	{
+		cout << *temp << endl;
+		/*
 		//Return false when there are multiple negative signs after the initial one at the beginning
 		if (*temp == '-' && negativeFlag == 1) {
 			return false;
 		}
 
 		//Returning false when there are multiple decimal points 
-		if (*temp == '.' && decPointLocation != -1) {
+		if (*temp == '.' && decPointFlag == 1) {
 			return false;
 		}
 
 		//Setting the decimal point location 
-		if (*temp == '.' && decPointLocation == -1) {
-			decPointLocation = index;
+		if (*temp == '.' && decPointFlag == 0) {
+			decPointFlag= 1;
 			temp++;
 		}
 
@@ -48,18 +47,17 @@ bool isValidInteger(char* inpInt) {
 		}
 
 		//returning false if there are non zero digits after the decimal place
-		if (*temp != '0' && decPointLocation != -1) {
+		if (*temp != '0' && decPointFlag == 1) {
 			return false;
-		}
+		}	*/
 
-		
-
-
-
+		temp++;
 
 	}
 
+	cout << inpInt << endl;
 
+	return true;
 
 }
 
@@ -94,6 +92,8 @@ int main(int argc, char* argv[])
 	}
 
 	//Performing checks on the integer inputs
-	
+	cout << isValidInteger(argv[1]) << endl;
+
+	return 0;
 }
 
