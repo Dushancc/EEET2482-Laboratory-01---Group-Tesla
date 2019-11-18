@@ -65,13 +65,18 @@ bool isValidInteger(char* inpInt) {
 bool isEmpty(char* x)
 {
 	char* value = x;
+	uint8_t count = 0;
+
 	for (int i = 0; i < max_input_length; i++) {
-		if (*value == NULL) {
-			return true;
+		if (*value != '\0') {
+			count++;
 		}
 		value++;
 	}
-	return false;
+	if (count > 0) {
+		return false;
+	}
+	return true;
 }
 
 
@@ -87,31 +92,44 @@ int main(int argc, char* argv[])
 	while (exitFlag) 
 	{
 		//character array for the single line input
-		char input[max_input_length] = { NULL };
+		char input[max_input_length + 2] = { NULL };
 
 
 		//character arrays for user inputs
-		char input1[max_input_length] = { NULL };
-		char input2[max_input_length] = { NULL };
-		char inputOp[max_input_length] = { NULL };
-
-		//Obtaining the user input
-		cin >> input;
+		char arguments[3][max_input_length] = { NULL };
 		
-		for (int i = 0; i < max_input_length)
-		{
+		//Obtaining the user input
+		cin.getline(input,max_input_length);
 
+		//seperating the three inputs
+		uint8_t count = 0;
+		uint8_t position = 0;
+
+		for (int i = 0; i < max_input_length;i++)
+		{
+			if (input[i] == 32) {
+				position = 0;
+				count++; i++;
+				if (count >= 3) {
+					position = i;
+					break;
+				}
+			}
+			arguments[count][position] = input[i];
+			position++;
+		}
+
+		//checking for empty inputs
+		if (isEmpty(input)) {
+			cout << "Enter input arguments" << endl;
+			continue;
 		}
 
 
 
 	}
 
-	//checking for empty inputs
-	if (isEmpty(input)) {
-		cout << "Enter valid arguments" << endl;
-		return 1;
-	}
+	/*
 
 	//Terminating the program on EXIT command 
 	if (argv[1][0] == 'E' && argv[1][1] == 'x' && argv[1][2] == 'i' && argv[1][3] == 't')
@@ -159,7 +177,7 @@ int main(int argc, char* argv[])
 	}
 
 
-	switch (*argv[2])
+	switch ()
 	{
 	case '+':
 		cout << number1 + number2 << endl;
@@ -182,7 +200,7 @@ int main(int argc, char* argv[])
 	case '%':
 		cout << number1 % number2 << endl;
 		break;
-	}
+	}*/
 
 	return 0;
 }
