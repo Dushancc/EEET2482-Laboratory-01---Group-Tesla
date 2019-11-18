@@ -5,9 +5,12 @@
 
 //2 Argument Calculator
 
+#define max_input_length 20
+
 #include <iostream>
 using namespace std;
 
+//function to check whether the given number is a valid integer
 bool isValidInteger(char* inpInt) {
 
 	char* temp = inpInt;	//temporary pointer to the input digit 
@@ -22,8 +25,6 @@ bool isValidInteger(char* inpInt) {
 
 	while ((*temp) != '\0')
 	{
-		cout << *temp << endl;
-		/*
 		//Return false when there are multiple negative signs after the initial one at the beginning
 		if (*temp == '-' && negativeFlag == 1) {
 			return false;
@@ -34,7 +35,7 @@ bool isValidInteger(char* inpInt) {
 			return false;
 		}
 
-		//Setting the decimal point location 
+		//Setting the decimal point flag
 		if (*temp == '.' && decPointFlag == 0) {
 			decPointFlag= 1;
 			temp++;
@@ -49,29 +50,47 @@ bool isValidInteger(char* inpInt) {
 		//returning false if there are non zero digits after the decimal place
 		if (*temp != '0' && decPointFlag == 1) {
 			return false;
-		}	*/
+		}	
 
 		temp++;
-
 	}
 
-	cout << inpInt << endl;
-
+	//returning true if none of the error checks triggers
 	return true;
 
 }
 
 int main(int argc, char* argv[])
 {
+	//Declaring variables for keeping the two integer values
+	__int64 number1 = 0;
+	__int64 number2 = 0;
 
-	//Terminating the program on EXIT command 
+	//three character arrays for use inputs
+	char input1[max_input_length] = { NULL };
+	char input2[max_input_length] = { NULL };
+	char inputOp[max_input_length] = { NULL };
+
+	//Program status flag to exit the program whe user type 'Exit'
+	bool exitFlag = 1;
+
+	while (exitFlag) 
+	{}
+
+	//checking for empty inputs
+	if (argc == 1) {
+		cout << "Enter valid arguments" << endl;
+		return 1;
+	}
+
+	//Terminating the program on EXIT command  ffdduhdfdufhduf
 	if (argv[1][0] == 'E' && argv[1][1] == 'x' && argv[1][2] == 'i' && argv[1][3] == 't')
 	{
 		return 0;
 	}
 	//performing checks for invalid inputs
 
-	//Check 01 : Checking whether user has entered valid no of arguments
+	//Check 01 : Checking whether user has entered valid no of arguments (dummy variables)
 	if (argc != 4) {
 		cout << "Invalid no of user inputs" << endl;
 		return 1;
@@ -85,14 +104,55 @@ int main(int argc, char* argv[])
 	}
 
 	//Check 03 : Checking whether user has entered a valid operator
-	if (argv[2][0] != 37 && argv[2][0] != 42 && argv[2][0] != 43 && argv[2][0] != 45 && argv[2][0] != 47)
+	if (argv[2][0] != '+' && argv[2][0] != '-' && argv[2][0] != '*' && argv[2][0] != '/' && argv[2][0] != '%')
 	{
 		cout << "Invalid Operator" << endl;
 		return 1;
 	}
 
 	//Performing checks on the integer inputs
-	cout << isValidInteger(argv[1]) << endl;
+	if (!isValidInteger(argv[1]) && !isValidInteger(argv[3]))
+	{
+		cout << "Invalid integer inputs" << endl;
+		return false;
+	}
+
+	//converting the two character arrays to integer values
+	number1 = atoi(argv[1]);
+	number2 = atoi(argv[3]);
+
+	//Checking whether the numbers are within the range
+	if ((number1 > 32767 || number1 < -32768) && (number2 > 32767 || number2 < -32768))
+	{
+		cout << "Inputs are out of allowed range";
+		return 0;
+	}
+
+
+	switch (*argv[2])
+	{
+	case '+':
+		cout << number1 + number2 << endl;
+		break;
+	case '-':
+		cout << number1 - number2 << endl;
+		break;
+	case '*':
+		cout << number1 * number2 << endl;
+		break;
+	case '/':
+		if (number2 != 0)
+		{
+			cout << number1 + number2 << endl;
+		}
+		else {
+			cout << "Division by Zero is not allowed" << endl;
+		}
+		break;
+	case '%':
+		cout << number1 % number2 << endl;
+		break;
+	}
 
 	return 0;
 }
